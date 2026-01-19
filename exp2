@@ -1,0 +1,43 @@
+CREATE TABLE Instructor_1(
+instructor_1_id int primary key,
+instructor_1_name varchar(50) not null,
+department_1 varchar(50) not null
+);
+desc Instructor_1;
+CREATE TABLE Course_1 (
+    Course_1_id INT PRIMARY KEY,
+    title VARCHAR(20) NOT NULL,
+    credit INT CHECK (credit > 0),
+    Instructor_1_id INT,
+    FOREIGN KEY (Instructor_1_id)
+        REFERENCES Instructor_1 (Instructor_1_id)
+        ON DELETE SET NULL
+);
+desc course_1;
+CREATE TABLE student_1(
+ROLL_NO INT PRIMARY KEY,
+NAME VARCHAR(30) NOT NULL,
+DATE_OF_BIRTH DATE NOT NULL,
+DEPARTMENT_1 VARCHAR(40) NOT NULL
+);
+desc student_1;
+CREATE TABLE ENROLLMENT(
+ROLL_NO INT,
+ Course_1_id INT,
+GRADE CHAR(2),
+PRIMARY KEY (ROLL_NO, Course_1_id),
+FOREIGN KEY (ROLL_NO)
+REFERENCES student_1 (ROLL_NO)
+ON DELETE CASCADE,
+FOREIGN KEY(Course_1_id)
+REFERENCES  Course_1 ( Course_1_id)
+ON DELETE CASCADE
+);
+DESC ENROLLMENT;
+ALTER TABLE student_1 ADD (EMAIL VARCHAR(60));
+
+desc student_1;
+CREATE INDEX IDX_STUDENT_DEPARTMENT
+ON STUDENT_1(DEPARTMENT_1);
+CREATE INDEX IDX_COURSE_INSTRUCTOR
+ON COURSE_1(INSTRUCTOR_1_ID);
